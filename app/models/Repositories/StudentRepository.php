@@ -12,8 +12,7 @@ class StudentRepository extends Modal
     {
         $sql = "SELECT * FROM {$this->table} WHERE email = :email";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
+        $stmt->execute(['email' => $email]);
         return $stmt->fetch();
     }
 }

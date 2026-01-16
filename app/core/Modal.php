@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Core\Database;
+
 abstract class Modal
 {
     protected $db;
@@ -16,12 +18,13 @@ abstract class Modal
     public function all()
     {
         $stmt = $this->db->prepare("SELECT * FROM {$this->table}");
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 
     public function find($id)
     {
-        $sql = $this->db->prepare("SELECT * FROM {$this->table} WHERE {$this->primaryKey} = ?");
+        $sql = "SELECT * FROM {$this->table} WHERE {$this->primaryKey} = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetch();
@@ -50,7 +53,8 @@ abstract class Modal
         return $stmt->execute($data);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $sql = "DELETE FROM {$this->table} WHERE {$this->primaryKey} = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$id]);

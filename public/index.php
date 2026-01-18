@@ -36,15 +36,15 @@ $router->get('/student/dashboard', [StudentController::class, 'dashboard']);
 
 $router->dispatch($_SERVER['REQUEST_URI']);
 
-require_once __DIR__ . '/../app/Core/Database.php';
+// require_once __DIR__ . '/../app/Core/Database.php';
 
-use App\Core\Database;
+// use App\Core\Database;
 
-try {
-    $db = Database::getInstance()->getConnection();
-    echo "Database connected successfully";
-} catch (Exception $e) {
-    echo "Database error: " . $e->getMessage();
-}
+// try {
+//     $db = Database::getInstance()->getConnection();
+//     echo "Database connected successfully";
+// } catch (Exception $e) {
+//     echo "Database error: " . $e->getMessage();
+// }
 
 

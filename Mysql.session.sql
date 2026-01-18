@@ -7,6 +7,8 @@ CREATE TABLE students (
 );
 
 
+SELECT * FROM students;
+
 CREATE TABLE courses (
     id_course INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(150) NOT NULL,

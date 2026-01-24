@@ -48,8 +48,8 @@ class StudentController extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
             $success = $this->enrollmentService->enrollStudent(
-                (int)$student['id_student'],
-                (int)$_POST['course_id']
+                $student['id_student'],
+                $_POST['course_id']
             );
 
             if (!$success) {
@@ -62,15 +62,16 @@ class StudentController extends Controller
         $this->redirect('/student/dashboard');
     }
 
-    public function courseDetail($id_course)
+    public function courseDetail()
     {
         $student = Auth::user();
         if (!$student) {
             $this->redirect('/login');
         }
 
-        $course = $this->courseService->getCourseById($id_course);
+        $courseId = isset($_GET['id']) ? $_GET['id'] : null;
 
+        $course = $this->courseService->getCourseById($courseId);
         $this->view('student/course', [
             'student' => $student,
             'course'  => $course

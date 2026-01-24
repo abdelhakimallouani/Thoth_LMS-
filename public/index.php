@@ -25,30 +25,19 @@ require_once __DIR__ . '/../app/Controllers/StudentController.php';
 
 $router = new Router();
 
-$router->get('/', [AuthController::class, 'login']);
-$router->get('/login', [AuthController::class, 'login']);
-$router->post('/login', [AuthController::class, 'login']);
-$router->get('/register', [AuthController::class, 'register']);
-$router->post('/register', [AuthController::class, 'register']);
-$router->get('/logout', [AuthController::class, 'logout']);
+$router->get('/', ['AuthController', 'login']);
+$router->get('/login', ['AuthController', 'login']);
+$router->post('/login', ['AuthController', 'login']);
+$router->get('/register', ['AuthController', 'register']);
+$router->post('/register', ['AuthController', 'register']);
+$router->get('/logout', ['AuthController', 'logout']);
 
-$router->get('/student/dashboard', [StudentController::class, 'dashboard']);
-$router->post('/student/dashboard', [StudentController::class, 'enroll']);
-$router->get('/student/course/{id}', [StudentController::class, 'courseDetail']);
+// Routes Student
+$router->get('/student/dashboard', ['StudentController', 'dashboard']);
+$router->post('/student/dashboard', ['StudentController', 'enroll']);
+$router->get('/student/course', ['StudentController', 'courseDetail']);
 
-
-
+// Dispatcher
 $router->dispatch($_SERVER['REQUEST_URI']);
-
-// require_once __DIR__ . '/../app/Core/Database.php';
-
-// use App\Core\Database;
-
-// try {
-//     $db = Database::getInstance()->getConnection();
-//     echo "Database connected successfully";
-// } catch (Exception $e) {
-//     echo "Database error: " . $e->getMessage();
-// }
 
 

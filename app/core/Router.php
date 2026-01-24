@@ -1,72 +1,40 @@
 <?php
 
-
 namespace App\Core;
 
 class Router
 {
-    private array $routes = [
-        'GET' => [],
-        'POST' => []
-    ];
+    private array $routes = [];
 
-    public function get($path, $callback)
+    public function get( $path, $action)
     {
-        $this->routes['GET'][$path] = $callback;
+        $this->routes['GET'][$path] = $action;
     }
 
-    public function post($path, $callback)
+    public function post( $path,  $action)
     {
-        $this->routes['POST'][$path] = $callback;
+        $this->routes['POST'][$path] = $action;
     }
 
-    function dispatch()
+    public function dispatch( $uri)
     {
-
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $path = parse_url($uri, PHP_URL_PATH);
         $method = $_SERVER['REQUEST_METHOD'];
 
-        if (!isset($this->routes[$method])) {
-            $this->abort();
+        $action = $this->routes[$method][$path] ?? null;
+
+        if (!$action) {
+            http_response_code(404);
+            echo '404 Not Found';
+            exit;
         }
 
-        foreach ($this->routes[$method] as $path => $callback) {
-            $routeRegex = preg_replace(
-                '/\{[a-zA-Z]+\}/',
-                '([a-zA-Z0-9_-]+)',
-                $path
-            );
+        [$controllerName, $methodName] = $action;
 
-            $routeRegex = '#^' . $routeRegex . '$#';
+        require_once __DIR__ . '/../Controllers/' . $controllerName . '.php';
 
-            if(preg_match($routeRegex,$uri,$matches)){
-                array_shift($matches);
+        $controller = new $controllerName();
 
-                if(is_callable($callback)){
-                    call_user_func_array($callback,$matches);
-                    return;
-                }
-
-                if(is_array($callback)) {
-                    [$controller , $methodName] = $callback;
-
-                    $controllerInstance = new $controller();
-
-                    call_user_func_array(
-                        [$controllerInstance,$methodName],
-                        $matches
-                    );
-                    return;
-                }
-            }
-        }
-
-        $this->abort();
-    }
-
-    public function abort(){
-        http_response_code(404);
-        echo "404 - Page not found";
-        exit;
+        $controller->$methodName();
     }
 }

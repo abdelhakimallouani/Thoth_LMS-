@@ -70,7 +70,7 @@
                                 </div>
                                 <h3 class="text-xl font-bold text-gray-900 mb-2"><?= htmlspecialchars($course['title']) ?></h3>
                                 <p class="text-gray-500 text-sm line-clamp-2 mb-6"><?= htmlspecialchars($course['description']) ?></p>
-                                <a href="/student/course/<?= $course['id_course'] ?>" class="flex items-center justify-center w-full px-4 py-3 bg-gray-900 text-white text-sm font-bold rounded-xl hover:bg-indigo-600 transition duration-300">
+                                <a href="/student/course?id=<?= $course['id_course'] ?>" class="flex items-center justify-center w-full px-4 py-3 bg-gray-900 text-white text-sm font-bold rounded-xl hover:bg-indigo-600 transition duration-300">
                                     Accéder au cours
                                 </a>
                             </div>
@@ -110,7 +110,7 @@
                                 </p>
 
                                 <div class="space-y-3">
-                                    <a href="/student/course/<?= $course['id_course'] ?>" class="block text-center text-indigo-600 text-sm font-bold py-2 border border-indigo-100 rounded-lg hover:bg-indigo-50 transition">
+                                    <a href="/student/course?id=<?= $course['id_course'] ?>" class="block text-center text-indigo-600 text-sm font-bold py-2 border border-indigo-100 rounded-lg hover:bg-indigo-50 transition">
                                         Voir les détails
                                     </a>
                                     <form action="/student/dashboard" method="POST">

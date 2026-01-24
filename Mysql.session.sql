@@ -30,4 +30,4 @@ CREATE TABLE enrollments (
 
 SELECT * FROM enrollments;
 
-DELETE FROM enrollments WHERE id_enrollment = 2;
+DELETE FROM enrollments WHERE id_enrollment = 3;

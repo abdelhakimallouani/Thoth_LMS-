@@ -17,4 +17,9 @@ class CourseService
     {
         return $this->rep_course->getAllCourses();
     }
+
+    public function getCourseById($id)
+    {
+        return $this->rep_course->getById($id);
+    }
 }

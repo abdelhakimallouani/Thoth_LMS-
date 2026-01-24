@@ -23,6 +23,7 @@ class AuthController extends Controller
             if ($student) {
                 $_SESSION['student'] = $student;
                 $this->redirect('/student/dashboard');
+                exit;
             }
 
             $this->view('student/login', ['error' => 'Email ou mot de passe incorrect']);
@@ -30,8 +31,6 @@ class AuthController extends Controller
         }
 
         $this->view('student/login');
-        
-        
     }
 
     public function register()

@@ -33,6 +33,10 @@ $router->post('/register', [AuthController::class, 'register']);
 $router->get('/logout', [AuthController::class, 'logout']);
 
 $router->get('/student/dashboard', [StudentController::class, 'dashboard']);
+$router->post('/student/dashboard', [StudentController::class, 'enroll']);
+$router->get('/student/course/{id}', [StudentController::class, 'courseDetail']);
+
+
 
 $router->dispatch($_SERVER['REQUEST_URI']);
 

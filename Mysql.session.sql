@@ -15,6 +15,9 @@ CREATE TABLE courses (
     description TEXT
 );
 
+SELECT * FROM courses;
+
+
 
 CREATE TABLE enrollments (
     id_enrollment INT AUTO_INCREMENT PRIMARY KEY,
@@ -24,3 +27,7 @@ CREATE TABLE enrollments (
     FOREIGN KEY (id_student) REFERENCES students(id_student) ON DELETE CASCADE,
     FOREIGN KEY (id_course) REFERENCES courses(id_course) ON DELETE CASCADE
 );
+
+SELECT * FROM enrollments;
+
+DELETE FROM enrollments WHERE id_enrollment = 2;

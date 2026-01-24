@@ -15,4 +15,11 @@ class CourseRepository extends Modal
         $stmt->execute();
         return $stmt->fetchAll();
     }
+    public function getById($id)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE id_course = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
 }
